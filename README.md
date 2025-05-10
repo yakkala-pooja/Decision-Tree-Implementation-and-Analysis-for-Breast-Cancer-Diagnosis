@@ -97,7 +97,7 @@ python train.py --criterion entropy --prune True
 
 ---
 
-## 📈 Evaluation
+## Evaluation
 
 After training, the model is evaluated on the test set and the following metrics are computed:
 
@@ -114,7 +114,7 @@ results/report.tex
 
 ---
 
-## 🔬 Comparison with scikit-learn
+## Comparison with scikit-learn
 
 Use the `notebooks/scikit_comparison.ipynb` notebook to:
 
@@ -124,7 +124,7 @@ Use the `notebooks/scikit_comparison.ipynb` notebook to:
 
 ---
 
-## 📌 Notes
+## Notes
 
 - **χ² Pruning**: Prunes statistically insignificant branches to prevent overfitting.
 - **Discretization**: ID3-style trees require categorical inputs, so continuous features must be discretized.
@@ -132,7 +132,7 @@ Use the `notebooks/scikit_comparison.ipynb` notebook to:
 
 ---
 
-## 📚 References
+## References
 
 - Quinlan, J. R. (1986). *Induction of decision trees*. Machine learning, 1(1), 81-106.
 - [Wisconsin Diagnostic Breast Cancer (WDBC) Dataset](https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+(Diagnostic))
@@ -140,6 +140,6 @@ Use the `notebooks/scikit_comparison.ipynb` notebook to:
 
 ---
 
-## 🙌 Acknowledgments
+## Acknowledgments
 
 This project was developed as part of an academic machine learning course to deepen understanding of decision tree algorithms and practical ML workflow.
