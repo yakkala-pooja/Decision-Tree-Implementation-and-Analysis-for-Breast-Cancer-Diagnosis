@@ -1,10 +1,10 @@
 # Decision Tree Classifier for Binary Classification
 
-## 📌 Overview
+## Overview
 
 This project implements a **Decision Tree Classifier** to solve a binary classification task. It explores different configurations of the model by tuning key hyperparameters such as `max_depth`, splitting criterion (`gini` vs. `entropy`), and pruning strategies. The model is evaluated using a variety of performance metrics and validated using a separate development dataset to ensure generalization.
 
-## 🚀 Features
+## Features
 
 - Decision tree classifier using `scikit-learn`
 - Hyperparameter tuning (`max_depth`, `criterion`)
@@ -13,7 +13,7 @@ This project implements a **Decision Tree Classifier** to solve a binary classif
 - Evaluation on both training and development datasets
 - Performance comparison against majority class baseline
 
-## 📂 Dataset
+## Dataset
 
 The dataset used for training and evaluation consists of:
 - **Numerical and categorical features** (preprocessed using scaling and encoding)
@@ -24,14 +24,14 @@ Data was preprocessed to handle:
 - Irrelevant columns
 - Imbalanced classes (using appropriate sampling or evaluation techniques)
 
-## ⚙️ Model Training & Evaluation
+## Model Training & Evaluation
 
-### 🔧 Hyperparameters Tuned
+### Hyperparameters Tuned
 - `max_depth`: 3 to 25
 - `criterion`: `gini` or `entropy`
 - `pruning`: Active vs. No pruning
 
-### 📊 Performance Metrics
+### Performance Metrics
 - **Accuracy**
 - **Precision**
 - **Recall**
@@ -39,7 +39,7 @@ Data was preprocessed to handle:
 - **F1 Score**
 - **Confusion Matrix**
 
-### ✅ Best Configuration
+### Best Configuration
 - `max_depth`: 5  
 - `criterion`: entropy  
 - `pruning`: active  
@@ -51,7 +51,7 @@ Data was preprocessed to handle:
 - **Precision**: 90.70%
 - **F1 Score**: 90.70%
 
-## 📈 Results Summary
+## Results Summary
 
 | Criterion                 | Accuracy | Precision | Recall | F1 Score |
 |--------------------------|----------|-----------|--------|----------|
@@ -59,23 +59,23 @@ Data was preprocessed to handle:
 | **Entropy (Information Gain)** | 92.98%   | 90.70%    | 90.70% | 90.70%   |
 | **Majority Class Baseline**   | 62.28%   | 0.00%     | 0.00%  | 0.00%    |
 
-## 🔍 Key Takeaways
+## Key Takeaways
 
 - Models with `max_depth` > 5 showed diminishing returns.
 - Both `gini` and `entropy` performed similarly, though `entropy` was slightly better in some cases.
 - Active pruning improved generalization by reducing overfitting.
 - The decision tree significantly outperforms the majority class baseline.
 
-## 💡 Future Work
+## Future Work
 
 - Implement cross-validation for more robust evaluation.
 - Explore other classifiers like Random Forest, SVM, or XGBoost.
 - Apply SHAP/LIME for model interpretability.
 - Perform advanced feature engineering for better signal extraction.
 
-## 💻 Installation
+## Installation
 
-### 📦 Requirements
+### Requirements
 
 - Python 3.x
 - scikit-learn
@@ -84,7 +84,7 @@ Data was preprocessed to handle:
 - matplotlib
 - seaborn
 
-### 🔧 Install Dependencies
+### Install Dependencies
 
 ```bash
 pip install -r requirements.txt
