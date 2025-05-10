@@ -86,13 +86,13 @@ pip install -r requirements.txt
 ### Train the model
 
 ```bash
-python train.py --criterion [entropy|gini] --prune [True|False]
+python Decision_Tree.py --criterion [entropy|gini] --prune [True|False]
 ```
 
 ### Example
 
 ```bash
-python train.py --criterion entropy --prune True
+python Decision_Tree.py --criterion entropy --prune True
 ```
 
 ---
