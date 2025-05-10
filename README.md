@@ -1,90 +1,145 @@
-# Decision Tree Classifier for Binary Classification
+
+# Decision Tree Classifier from Scratch
 
 ## Overview
 
-This project implements a **Decision Tree Classifier** to solve a binary classification task. It explores different configurations of the model by tuning key hyperparameters such as `max_depth`, splitting criterion (`gini` vs. `entropy`), and pruning strategies. The model is evaluated using a variety of performance metrics and validated using a separate development dataset to ensure generalization.
+This project implements a top-down, recursive **Decision Tree Classifier** from scratch, supporting both **Information Gain (Entropy)** and **Gini Index** as splitting criteria. The classifier is applied to the **Wisconsin Diagnostic Breast Cancer (WDBC)** dataset to predict whether tumors are malignant or benign. It includes preprocessing, training, evaluation, pruning, and comparison with scikit-learn’s implementation.
+
+---
+
+## Project Structure
+
+```
+.
+├── data/
+│   ├── wdbc_train.csv
+│   ├── wdbc_dev.csv
+│   ├── wdbc_dev_normalized.csv
+│   ├── wdbc_dev_raw.csv
+│   ├── wdbc_test.csv
+│   ├── wdbc_test_normalized.csv
+│   ├── wdbc_test_raw.csv
+│   └── wdbc_train_raw.csv
+├── notebooks/
+│   ├── Decision_Tree.ipynb
+│   ├── ChiSquarePruning.ipynb
+│   └── WDBC_Decision_Tree.ipynb
+├── results/
+│   └── report.tex
+├── requirements.txt
+└── README.md
+```
+
+---
 
 ## Features
 
-- Decision tree classifier using `scikit-learn`
-- Hyperparameter tuning (`max_depth`, `criterion`)
-- Model pruning for reducing overfitting
-- Confusion matrix and performance metrics (accuracy, precision, recall, F1-score, specificity)
-- Evaluation on both training and development datasets
-- Performance comparison against majority class baseline
+- Custom Decision Tree implementation from scratch
+- Supports Entropy and Gini Index as splitting criteria
+- χ² pruning for generalization
+- Discretization of continuous features using Z-score normalization
+- Evaluation with Accuracy, Error Rate, Precision, and Recall
+- Comparison with scikit-learn’s `DecisionTreeClassifier`
+
+---
 
 ## Dataset
 
-The dataset used for training and evaluation consists of:
-- **Numerical and categorical features** (preprocessed using scaling and encoding)
-- **Target label**: Binary (0 or 1)
+The **WDBC** dataset contains 30 real-valued features derived from digitized images of fine needle aspirate (FNA) of breast masses. Each sample is labeled as either:
 
-Data was preprocessed to handle:
-- Missing values
-- Irrelevant columns
-- Imbalanced classes (using appropriate sampling or evaluation techniques)
+- **M** – Malignant  
+- **B** – Benign
 
-## Model Training & Evaluation
+### Discretization (Z-score Normalization + Binning)
 
-### Hyperparameters Tuned
-- `max_depth`: 3 to 25
-- `criterion`: `gini` or `entropy`
-- `pruning`: Active vs. No pruning
+Each feature is standardized using:
 
-### Performance Metrics
-- **Accuracy**
-- **Precision**
-- **Recall**
-- **Specificity**
-- **F1 Score**
-- **Confusion Matrix**
+```
+Zij = (xij - μj) / σj
+```
 
-### Best Configuration
-- `max_depth`: 5  
-- `criterion`: entropy  
-- `pruning`: active  
+Then binned into levels:
 
-#### Best Model Results (on dev dataset):
-- **Accuracy**: 92.98%
-- **Recall**: 90.70%
-- **Specificity**: 94.37%
-- **Precision**: 90.70%
-- **F1 Score**: 90.70%
+- l1: Zij < -2σ  
+- l2: -2σ ≤ Zij < -σ  
+- l3: -σ ≤ Zij < 0  
+- l4: 0 ≤ Zij < σ  
+- l5: σ ≤ Zij < 2σ  
+- l6: Zij ≥ 2σ  
 
-## Results Summary
-
-| Criterion                 | Accuracy | Precision | Recall | F1 Score |
-|--------------------------|----------|-----------|--------|----------|
-| **Gini**                 | 92.98%   | 90.70%    | 90.70% | 90.70%   |
-| **Entropy (Information Gain)** | 92.98%   | 90.70%    | 90.70% | 90.70%   |
-| **Majority Class Baseline**   | 62.28%   | 0.00%     | 0.00%  | 0.00%    |
-
-## Key Takeaways
-
-- Models with `max_depth` > 5 showed diminishing returns.
-- Both `gini` and `entropy` performed similarly, though `entropy` was slightly better in some cases.
-- Active pruning improved generalization by reducing overfitting.
-- The decision tree significantly outperforms the majority class baseline.
-
-## Future Work
-
-- Implement cross-validation for more robust evaluation.
-- Explore other classifiers like Random Forest, SVM, or XGBoost.
-- Apply SHAP/LIME for model interpretability.
-- Perform advanced feature engineering for better signal extraction.
+---
 
 ## Installation
 
-### Requirements
+```bash
+git clone https://github.com/yourusername/decision-tree-classifier.git
+cd decision-tree-classifier
+python -m venv env
+source env/bin/activate  # or use env\Scripts\activate on Windows
+pip install -r requirements.txt
+```
 
-- Python 3.x
-- scikit-learn
-- numpy
-- pandas
-- matplotlib
-- seaborn
+---
 
-### Install Dependencies
+## Usage
+
+### Train the model
 
 ```bash
-pip install -r requirements.txt
+python train.py --criterion [entropy|gini] --prune [True|False]
+```
+
+### Example
+
+```bash
+python train.py --criterion entropy --prune True
+```
+
+---
+
+## 📈 Evaluation
+
+After training, the model is evaluated on the test set and the following metrics are computed:
+
+- **Accuracy** = Correct predictions / Total predictions
+- **Error Rate** = Incorrect predictions / Total predictions
+- **Precision** = True Positives / (True Positives + False Positives)
+- **Recall** = True Positives / (True Positives + False Negatives)
+
+Results are discussed in:
+
+```
+results/report.tex
+```
+
+---
+
+## 🔬 Comparison with scikit-learn
+
+Use the `notebooks/scikit_comparison.ipynb` notebook to:
+
+- Compare accuracy and performance
+- Visualize decision trees
+- Understand differences in splitting behavior
+
+---
+
+## 📌 Notes
+
+- **χ² Pruning**: Prunes statistically insignificant branches to prevent overfitting.
+- **Discretization**: ID3-style trees require categorical inputs, so continuous features must be discretized.
+- **Medical Relevance**: High precision and recall are critical for cancer diagnostics to minimize misclassifications.
+
+---
+
+## 📚 References
+
+- Quinlan, J. R. (1986). *Induction of decision trees*. Machine learning, 1(1), 81-106.
+- [Wisconsin Diagnostic Breast Cancer (WDBC) Dataset](https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+(Diagnostic))
+- [scikit-learn Decision Tree Documentation](https://scikit-learn.org/stable/modules/tree.html)
+
+---
+
+## 🙌 Acknowledgments
+
+This project was developed as part of an academic machine learning course to deepen understanding of decision tree algorithms and practical ML workflow.
